@@ -1,26 +1,28 @@
 # exploratory-maskinporten-token
 
-This repository can create valid jwt tokens given a maskinporten configuration in the ver2-environment
+Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres ver2-miljø
 
-# Maskinporten-configuration
+# Førstegangsoppsett i Maskinporten
 
-In the ver2-environment for usage in exploratory testing
+Før du begynner på denne må du ha en bruker i Samarbeidsportalen med tilgang til å se [integrasjoner for din virksomhet](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
 
-## Setting up a client with Maskinporten access
+## Sette opp en ny klient
 
-### Create a client in Maskinporten
+Før du kan sette opp din egen klient, må det aktuelle scopet være tildelt ditt orgnummer. Dette må gjøres i Samarbeidsportalen av tilbyderorganisasjonen.
 
+### Lag en klient i Maskinporten
 
+* Logg inn i ver2-miljøet i [Samarbeidsportalen](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
 
-### Create a keypair
+### Opprett et nøkkelpar
 
-Create a keypair under the `certs`-catalogue 
+Opprett et nøkkelpar under `certs`-mappen 
 
 ```
 openssl genrsa -out maskinporten.pem 2048
 ```
 
-Output the text-representation `openssl rsa -text -noout -in maskinporten.pem`, which gives the following result
+Output tekstrepresentasjonen av nøklen `openssl rsa -text -noout -in maskinporten.pem`. Resultatet vil ligne på følgende
 
 ```
 Private-Key: (2048 bit)
@@ -47,5 +49,5 @@ publicExponent: 65537 (0x10001)
 [...]
 ```
 
-The content of modulus (between 00 and bd) can be pasted to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')To_Base64('A-Za-z0-9%2B/%3D')) to convert from
-hex to base64
+Innholdet i modulus (mellom 00 og bd) kan kopieres inn i  [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')To_Base64('A-Za-z0-9%2B/%3D')) 
+for å konvertere fra hex til base64
