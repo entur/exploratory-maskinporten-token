@@ -12,9 +12,11 @@ Før du kan sette opp din egen klient, må det aktuelle scopet være tildelt dit
 
 ### Lag en klient i Maskinporten
 
-* Logg inn i ver2-miljøet i [Samarbeidsportalen](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
+* Logg inn i ver2-miljøet under [Integrasjoner i Samarbeidsportalen](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
+* Velg ny integrasjon, velg `Difi-tjeneste: Maskinporten`,  velg relevante scopes og oppgi levetid. 
+* Ta vare på `client_id` og `client_name` etter lagring
 
-### Opprett et nøkkelpar
+### Opprett et nøkkelpar på din lokale maskin
 
 Opprett et nøkkelpar under `certs`-mappen 
 
@@ -51,3 +53,23 @@ publicExponent: 65537 (0x10001)
 
 Innholdet i modulus (mellom 00 og bd) kan kopieres inn i  [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')To_Base64('A-Za-z0-9%2B/%3D')) 
 for å konvertere fra hex til base64
+
+### Legg til nøkler i Maskinporten
+
+Under den nyopprettede integrasjonen i Samarbeidsportalen, velg "Legg til egne nøkler" og paste inn på JWK-format
+
+```json
+[{
+  "keys": [
+    {
+      "kty": "RSA",
+      "e": "AQAB",
+      "use": "sig",
+      "kid": "<some>",
+      "alg": "RS256",
+      "n": "<base64>"
+    }
+  ]
+}]
+
+```
