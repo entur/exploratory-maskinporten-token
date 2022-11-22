@@ -60,7 +60,9 @@ for å konvertere fra hex til base64
 
 ### Legg til nøkler i Maskinporten
 
-Under den nyopprettede integrasjonen i Samarbeidsportalen, velg "Legg til egne nøkler" og paste inn på JWK-format
+Under den nyopprettede integrasjonen i Samarbeidsportalen, velg "Legg til egne nøkler" og paste inn på JWK-format som følger. 
+
+`<keyname>` er et valgfritt navn du gir denne nøkkelen og `<base64>` er modulus-komponenten i nøkkelen i base64-format. 
 
 ```json
 [
@@ -68,11 +70,58 @@ Under den nyopprettede integrasjonen i Samarbeidsportalen, velg "Legg til egne n
     "kty": "RSA",
     "e": "AQAB",
     "use": "sig",
-    "kid": "<some>",
+    "kid": "<keyname>",
     "alg": "RS256",
       "n": "<base64>"
   }
 ]
 
 
+```
+Det finnes også [automatiseringsmuligheter](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_api#registrere-klient-som-bruker-egen-nøkkel)
+for å laste opp nøkler på denne måten, men for denne testingen har det ikke vært aktuelt å sjekke ut basert på følgende 
+informasjon fra [dokumentasjonen](https://docs.digdir.no/docs/Maskinporten/maskinporten_sjolvbetjening_api#selvbetjening-som-api-konsument)
+
+> For å kunne bruke selvbetjening via API, så må virksomheten få utdelt en administrasjons-klient fra Digdir. API’et er sikret med oAuth2 med bruk av virksomhetssertifikat. Merk at i testmiljøene må det benyttes gyldig test-virksomhetssertifikat.
+
+## Generering av Maskinporten-tokens på jwt-format
+
+Fra klientgenereringen over vil du ha et nøkkelpar som du må bruke når du generer og signerer tokenet
+
+* Dokumentasjon om [token-endepunktet](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token)
+
+### Innholdet i JWT-grant
+
+Beskrivelse av [JWT-grant](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_jwtgrant) inspirert av 
+tilsvarende stil på [https://jwt.io].
+
+HEADER:ALGORITHM & TOKEN TYPE
+
+```json
+{
+  "alg": "RS256",
+  "typ": "JWT",
+  "kid": "keyname"
+}
+```
+
+PAYLOAD:DATA
+
+```json
+{
+  "aud": "https://ver2.maskinporten.no/",
+  "scope": "prefix:postfix",
+  "iss": "client_id",
+  "exp": 1584693183,
+  "iat": 1584693063,
+  "jti": "b1197d5a-0c68-4c4a-a95c-dc07c1194600"
+}
+```
+
+hvor `exp` og `iat` er timestamps og  `jti` er jwt-token-identifier som genereres unikt pr token
+
+VERIFY SIGNATURE
+
+```
+Private og public keys fra nøkkelparet
 ```
