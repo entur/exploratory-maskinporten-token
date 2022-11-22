@@ -1,0 +1,16 @@
+{
+  "name": "exploratory-maskinporten-token",
+  "version": "1.0.0",
+  "description": "Code for creating and validating Maskinporten-tokens used for exploratory testing",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "EUPL",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^2.1.4",
+    "node-fetch": "^2.6.7"
+  }
+}
