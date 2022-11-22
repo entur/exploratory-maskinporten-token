@@ -88,8 +88,6 @@ informasjon fra [dokumentasjonen](https://docs.digdir.no/docs/Maskinporten/maski
 
 Fra klientgenereringen over vil du ha et nøkkelpar som du må bruke når du generer og signerer tokenet
 
-* Dokumentasjon om [token-endepunktet](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token)
-
 ### Innholdet i JWT-grant
 
 Beskrivelse av [JWT-grant](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_jwtgrant) inspirert av 
@@ -125,3 +123,37 @@ VERIFY SIGNATURE
 ```
 Private og public keys fra nøkkelparet
 ```
+
+
+### Generering av et nytt accesstoken
+
+Koden under `src` genererer og signerer en JWT-grant som sendes til Maskinporten. Deretter returnerer Maskinporten et
+gyldig accesstoken som kan brukes videre og som kan valideres av andre API'er.
+
+* Dokumentasjon om [token-endepunktet](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token)
+* [Well-known endepunkter](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown) i de forskjellige miljøene 
+See, https://ver2.maskinporten.no/.well-known/oauth-authorization-server
+
+Fra token-endepunktet vet vi at 
+
+* grant type er `urn:ietf:params:oauth:grant-type:jwt-bearer`
+* assertion er signert JWT-grant
+
+```
+POST /token
+Content-type: application/x-www-form-urlencoded
+
+  grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&
+  assertion=<jwt>
+```
+En implementasjon som lager en JWT-grant og får Maskinporten-tokenet tilbake finnes under `src` og kan kjøres `node index.js`. Koden forventer privatnøkkelen under `certs/`
+
+### Verifisering av et accesstoken 
+
+Verifisering av et Maskinportentoken er beskrevet i deres [dokumentasjon](https://docs.digdir.no/docs/Maskinporten/maskinporten_guide_apitilbyder#4-validere-token).
+
+En testimplementasjon finnes også under `src/` og kan kjøres med følgende kommando `node verify.js <acces_token>`.
+
+## Bruk andre steder
+
+Nav og NAIS sin runtime-generering og oppdatering av nøkler er beskrevet her: [https://github.com/nais/digdirator]
