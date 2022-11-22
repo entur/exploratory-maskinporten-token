@@ -1,8 +1,7 @@
 const maskinporten = require("./maskinporten");
 
 function logToken(promise) {
-    console.log(`Token from ${promise.name}`)
-    promise().then((data) => {
+    promise.then((data) => {
         console.log(data)
     });
 }

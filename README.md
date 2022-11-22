@@ -145,7 +145,8 @@ Content-type: application/x-www-form-urlencoded
   grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&
   assertion=<jwt>
 ```
-En implementasjon som lager en JWT-grant og får Maskinporten-tokenet tilbake finnes under `src` og kan kjøres `node index.js`. Koden forventer privatnøkkelen under `certs/maskinporten.pem`.
+En implementasjon som lager en JWT-grant og får Maskinporten-tokenet tilbake finnes under `src` og kan kjøres med `node index.js`.
+Koden forventer privatnøkkelen under `certs/maskinporten.pem`.
 
 I `index.js` må følgende config redigerers for at du skal få accesstoken tilpasset din klient 
 
