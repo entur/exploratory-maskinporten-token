@@ -132,7 +132,6 @@ gyldig accesstoken som kan brukes videre og som kan valideres av andre API'er.
 
 * Dokumentasjon om [token-endepunktet](https://docs.digdir.no/docs/Maskinporten/maskinporten_protocol_token)
 * [Well-known endepunkter](https://docs.digdir.no/docs/Maskinporten/maskinporten_func_wellknown) i de forskjellige miljøene 
-See, https://ver2.maskinporten.no/.well-known/oauth-authorization-server
 
 Fra token-endepunktet vet vi at 
 
@@ -146,7 +145,19 @@ Content-type: application/x-www-form-urlencoded
   grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&
   assertion=<jwt>
 ```
-En implementasjon som lager en JWT-grant og får Maskinporten-tokenet tilbake finnes under `src` og kan kjøres `node index.js`. Koden forventer privatnøkkelen under `certs/`
+En implementasjon som lager en JWT-grant og får Maskinporten-tokenet tilbake finnes under `src` og kan kjøres `node index.js`. Koden forventer privatnøkkelen under `certs/maskinporten.pem`.
+
+I `index.js` må følgende config redigerers for at du skal få accesstoken tilpasset din klient 
+
+```
+const maskinportenGrantDetails =
+        {
+            scope: "scope_you_request",                     // scopene du ønsker tokenet skal inneholde
+            client_id: "client_id_from_samarbeidsportalen", // returnert uuid fra samarbeidsportalen for integrasjonen 
+            keyname: "keyname_from_samarbeidsportalen"      //navnet du gav som kid da du lastet opp jkws-infoen
+        }; 
+
+```
 
 ### Verifisering av et accesstoken 
 
