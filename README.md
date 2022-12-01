@@ -166,6 +166,10 @@ Verifisering av et Maskinportentoken er beskrevet i deres [dokumentasjon](https:
 
 En testimplementasjon finnes også under `src/` og kan kjøres med følgende kommando `node verify.js <acces_token>`.
 
+## Headerstørrelser
+
+Hvor store headerne og tokenet kan bli er regnet på i [headerstørrelse.md]
+
 ## Bruk andre steder
 
 Nav og NAIS sin runtime-generering og oppdatering av nøkler er beskrevet her: [https://github.com/nais/digdirator]
