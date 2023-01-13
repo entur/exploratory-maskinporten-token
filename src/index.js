@@ -8,9 +8,9 @@ function logToken(promise) {
 
 const maskinportenGrantDetails =
         {
-            scope: "scope_you_request",
-            client_id: "client_id_from_samarbeidsportalen",
-            keyname: "keyname-from-client"
+            scope: "entur:skyss.1",
+            client_id: "fcae871b-4597-492e-ab9f-762ff2443fb1",
+            keyname: "entur.tilgangspoc.1"
         };
 
 logToken(maskinporten.createToken(maskinportenGrantDetails));
