@@ -9,7 +9,9 @@ let certsPath = '../certs/maskinporten.pem';
 var privateKey = fs.readFileSync(certsPath);
 const generateToken = function (client) {
     return jwt.sign(
-        {"scope": client.scope},
+        {
+            "scope": client.scope, resource: ["https://hoc-cluster-public-vault-e58f231b.dada9b17.z1.hashicorp.cloud"]
+        },
         privateKey, {
             algorithm: 'RS256',
             audience: "https://ver2.maskinporten.no/",
@@ -19,7 +21,6 @@ const generateToken = function (client) {
             jwtid: crypto.randomUUID()
         });
 };
-
 
 
 const fetch_access_token = async function (client) {
