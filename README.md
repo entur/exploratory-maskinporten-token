@@ -2,6 +2,15 @@
 
 Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø
 
+## Uthenting av access_token
+
+Etter førstegangsoppsett er gjennomført, kjør `node index` fra `src`. Siden det vanligste bruksområdet handler om uthenting av 
+access_token, kan man kombinere med `jq` for å hente ut kun dette. 
+
+```
+node index.js | jq -r ".access_token"
+```
+
 # Førstegangsoppsett i Maskinporten
 
 Før du begynner på denne må du ha en bruker i Samarbeidsportalen med tilgang til å

@@ -2,7 +2,7 @@ const maskinporten = require("./maskinporten");
 
 function logToken(promise) {
     promise.then((data) => {
-        console.log(data)
+        process.stdout.write(JSON.stringify(data))
     });
 }
 
