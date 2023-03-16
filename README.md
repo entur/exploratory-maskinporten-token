@@ -1,11 +1,11 @@
 # exploratory-maskinporten-token
 
-Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres ver2-miljø
+Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø
 
 # Førstegangsoppsett i Maskinporten
 
 Før du begynner på denne må du ha en bruker i Samarbeidsportalen med tilgang til å
-se [integrasjoner for din virksomhet](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
+se [integrasjoner for din virksomhet](https://selvbetjening-samarbeid-test.difi.no/integrations)
 
 ## Sette opp en ny klient
 
@@ -14,8 +14,8 @@ Samarbeidsportalen av tilbyderorganisasjonen.
 
 ### Lag en klient i Maskinporten
 
-* Logg inn i ver2-miljøet
-  under [Integrasjoner i Samarbeidsportalen](https://selvbetjening-samarbeid-ver2.difi.no/integrations)
+* Logg inn i test-miljøet
+  under [Integrasjoner i Samarbeidsportalen](https://selvbetjening-samarbeid-test.difi.no/integrations)
 * Velg ny integrasjon, velg `Difi-tjeneste: Maskinporten`, velg relevante scopes og oppgi levetid.
 * Ta vare på `client_id` og `client_name` etter lagring
 

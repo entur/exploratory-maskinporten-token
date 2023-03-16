@@ -14,7 +14,7 @@ const generateToken = function (client) {
         },
         privateKey, {
             algorithm: 'RS256',
-            audience: "https://ver2.maskinporten.no/",
+            audience: "https://test.maskinporten.no/",
             issuer: client.client_id,
             header: {"kid": client.keyname},
             expiresIn: 100,
@@ -33,7 +33,7 @@ const fetch_access_token = async function (client) {
     params.append("grant_type", grant);
     params.append("assertion", jwt);
 
-    const response = await fetch(`https://ver2.maskinporten.no/token`,
+    const response = await fetch(`https://test.maskinporten.no/token`,
         {
             method: 'post',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},

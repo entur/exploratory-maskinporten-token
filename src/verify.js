@@ -5,7 +5,7 @@ const token = process.argv[2];
 console.log(`Token is ${token.substring(0, 15)}`);
 
 var client = jwksClient({
-    jwksUri: 'https://ver2.maskinporten.no/jwk.json'
+    jwksUri: 'https://test.maskinporten.no/jwk.json'
 });
 
 function getKey(header, callback) {
@@ -15,7 +15,7 @@ function getKey(header, callback) {
     });
 }
 
-jwt.verify(token, getKey, {"issuer": "https://ver2.maskinporten.no/"}, function (err, decoded) {
+jwt.verify(token, getKey, {"issuer": "https://test.maskinporten.no/"}, function (err, decoded) {
     if (err) {
         console.error(err)
     } else {
