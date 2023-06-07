@@ -10,7 +10,7 @@ const maskinportenGrantDetails =
         {
             scope: "entur:skyss.1",
             client_id: "fcae871b-4597-492e-ab9f-762ff2443fb1",
-            keyname: "entur.tilgangspoc.1"
+            keyname: "tryggtunnel"
         };
 
 logToken(maskinporten.createToken(maskinportenGrantDetails));

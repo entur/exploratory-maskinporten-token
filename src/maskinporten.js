@@ -3,6 +3,8 @@ var jwt = require('jsonwebtoken');
 var fs = require('fs');
 const crypto = require('crypto');
 
+// https://maskinporten.dev/.well-known/openid-configuration
+// https://test.maskinporten.no/
 
 let certsPath = '../certs/maskinporten.pem';
 
@@ -10,11 +12,11 @@ var privateKey = fs.readFileSync(certsPath);
 const generateToken = function (client) {
     return jwt.sign(
         {
-            "scope": client.scope, resource: ["https://hoc-cluster-public-vault-e58f231b.dada9b17.z1.hashicorp.cloud"]
+            "scope": client.scope, resource: ["https://entur.org/"]
         },
         privateKey, {
             algorithm: 'RS256',
-            audience: "https://test.maskinporten.no/",
+            audience: "https://maskinporten.dev/",
             issuer: client.client_id,
             header: {"kid": client.keyname},
             expiresIn: 100,
@@ -33,7 +35,7 @@ const fetch_access_token = async function (client) {
     params.append("grant_type", grant);
     params.append("assertion", jwt);
 
-    const response = await fetch(`https://test.maskinporten.no/token`,
+    const response = await fetch(`https://maskinporten.dev/token`,
         {
             method: 'post',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
