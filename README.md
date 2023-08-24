@@ -1,6 +1,6 @@
 # exploratory-maskinporten-token
 
-Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø
+Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø. Digdir har sin egen klient: https://github.com/felleslosninger/jwt-grant-generator
 
 ## Uthenting av access_token
 
