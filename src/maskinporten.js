@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var fs = require('fs');
 const crypto = require('crypto');
 
-// https://maskinporten.dev/.well-known/openid-configuration
+// https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
 
 let certsPath = '../certs/maskinporten.pem';
