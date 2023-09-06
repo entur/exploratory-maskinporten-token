@@ -6,12 +6,13 @@ const crypto = require('crypto');
 // https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
 
-let certsPath = '../certs/maskinporten.pem';
 
-var privateKey = fs.readFileSync(certsPath);
+
 const url = "https://test.maskinporten.no/";
 
 const generateToken = function (client) {
+    let certsPath = client.certname? `../certs/${client.certname}`:  '../certs/maskinporten.pem';
+    var privateKey = fs.readFileSync(certsPath);
     return jwt.sign(
         {
             "scope": client.scope, resource: ["https://sky.organisasjonsnavn.no"]
