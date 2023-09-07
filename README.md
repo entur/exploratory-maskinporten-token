@@ -3,15 +3,44 @@
 Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø. Digdir har sin egen klient: https://github.com/felleslosninger/jwt-grant-generator
 
 ## Uthenting av access_token
+Etter førstegangsoppsett for integrasjon i Maskinporten er gjennomført, 
+endre i `grantdetails.json` til å inneholde rett scope, klientid og referanse til nøkkel. Sertifikatet må ligge i mappen `certs/`
 
-Etter førstegangsoppsett er gjennomført, kjør `node index` fra `src`. Siden det vanligste bruksområdet handler om uthenting av 
+```
+{
+  "scope": "entur:skyss.1",
+  "client_id": "fcae871b-4597-492e-ab9f-762ff2443fb1",
+  "keyname": "tryggtunnel"
+}
+```
+Mulige utvidelser er `url` og `certname`
+
+```
+{
+  "scope": "entur:skyss.1",
+  "client_id": "fcae871b-4597-492e-ab9f-762ff2443fb1",
+  "keyname": "tryggtunnel",
+  "url": "https://sky.makskinporten.no",  // default: https://test.maskinporten.no/
+  "certname": "mycert.pem"                // default: maskinporten.pem 
+}
+```
+
+ kjør `node index` fra `src`. Siden det vanligste bruksområdet handler om uthenting av 
 access_token, kan man kombinere med `jq` for å hente ut kun dette. 
 
 ```
 node index.js | jq -r ".access_token"
 ```
 
-# Førstegangsoppsett i Maskinporten
+# Førstegangsoppsett i Maskinporten via forenklet onboarding
+
+Opprett nytt sertifikat `openssl genrsa -out maskinporten.pem 2048` og hent ut public key `openssl rsa -in maskinporten.pem -pubout -out maskinporten.pem.pub`
+
+Følg guiden i forenklet onboarding for opprettelse av ny integrasjon med opplastet nøkkel. Ta vare på key id og klientId som må plugges inn  her 
+for å få generert token. 
+
+
+# Førstegangsoppsett i Maskinporten via samarbeidsportalen
 
 Før du begynner på denne må du ha en bruker i Samarbeidsportalen med tilgang til å
 se [integrasjoner for din virksomhet](https://selvbetjening-samarbeid-test.difi.no/integrations)
@@ -28,7 +57,21 @@ Samarbeidsportalen av tilbyderorganisasjonen.
 * Velg ny integrasjon, velg `Difi-tjeneste: Maskinporten`, velg relevante scopes og oppgi levetid.
 * Ta vare på `client_id` og `client_name` etter lagring
 
-### Opprett et nøkkelpar på din lokale maskin
+### Opprett et nøkkelpar
+ 
+Du kan enten opprette et nøkkelpar på din lokale maskin eller bruke [https://mkjwk.org/](https://mkjwk.org/). 
+Husk å lagre privatnøkkelen som `makskinporten.pem`.
+
+
+#### Bruk av mkjwk
+
+Keysize: 2048
+Key use: signature
+Algorithm: RS256: RSASSA-PKCS1-v1_5 using SHA-256
+KeyId: <dinselvvalgtekeyId>
+Show X.509: yes
+
+#### Opprett et nøkkelpar på din lokale maskin
 
 Opprett et nøkkelpar under `certs`-mappen
 
@@ -70,6 +113,7 @@ for å konvertere fra hex til base64
 ### Legg til nøkler i Maskinporten
 
 Under den nyopprettede integrasjonen i Samarbeidsportalen, velg "Legg til egne nøkler" og paste inn på JWK-format som følger. 
+Dersom du har bruk mkjwks vil du automatisk får formatet rett, men du må legge innholdet til i en array
 
 `<keyname>` er et valgfritt navn du gir denne nøkkelen og `<base64>` er modulus-komponenten i nøkkelen i base64-format. 
 
