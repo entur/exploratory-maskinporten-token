@@ -1,5 +1,5 @@
 const maskinporten = require("./maskinporten");
-const grantDetails = require('./grantdetails.json');
+const grantDetails = require('./config-skyporten-public-demo.json');
 
 function logToken(promise) {
     promise.then((data) => {

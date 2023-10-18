@@ -9,13 +9,14 @@ const crypto = require('crypto');
 
 
 const url = "https://test.maskinporten.no/";
+const aud = "https://entur.org"
 
 const generateToken = function (client) {
     let certsPath = client.certname? `../certs/${client.certname}`:  '../certs/maskinporten.pem';
     var privateKey = fs.readFileSync(certsPath);
     return jwt.sign(
         {
-            "scope": client.scope, resource: ["https://sky.organisasjonsnavn.no"]
+            "scope": client.scope, resource: [client.audience ? client.audience : aud]
         },
         privateKey, {
             algorithm: 'RS256',
@@ -38,7 +39,9 @@ const fetch_access_token = async function (client) {
     params.append("grant_type", grant);
     params.append("assertion", jwt);
 
-    const response = await fetch(`${client.url ? client.url : url}token`,
+    console.log(jwt)
+
+    const response = await fetch(`${client.url ? client.url : url}/token`,
         {
             method: 'post',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
