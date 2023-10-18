@@ -1,0 +1,8 @@
+{
+  "scope": "entur:skyporten.demo",
+  "client_id": "my_client_id",
+  "keyname": "my_keyname_kid",
+  "url": "https://sky.maskinporten.dev",
+  "certname": "skyporten-public.pem",
+  "audience": "https://skyporten.entur.org"
+}
