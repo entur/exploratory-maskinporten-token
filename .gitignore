@@ -52,6 +52,15 @@ Thumbs.db
 *.pem
 certs
 
-*.python-version
+**.python-version
+
 
 config-*.json
+
+.venv
+env-params.txt
+__pycache__
+token.json
+
+*.pem
+credentials.json
