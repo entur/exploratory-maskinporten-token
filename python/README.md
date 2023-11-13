@@ -14,4 +14,4 @@ Install  required Python packages
 $ pip install -r requirements.txt
 ```
 
-Requires env-params from file `env-params.txt`
+Requires env-params from file `env-params.txt`, so run content in file
