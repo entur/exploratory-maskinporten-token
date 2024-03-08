@@ -43,7 +43,7 @@ for å få generert token.
 # Førstegangsoppsett i Maskinporten via samarbeidsportalen
 
 Før du begynner på denne må du ha en bruker i Samarbeidsportalen med tilgang til å
-se [integrasjoner for din virksomhet](https://selvbetjening-samarbeid-test.difi.no/integrations)
+se [integrasjoner for din virksomhet](https://sjolvbetjening.test.samarbeid.digdir.no/integrations)
 
 ## Sette opp en ny klient
 
@@ -53,7 +53,7 @@ Samarbeidsportalen av tilbyderorganisasjonen.
 ### Lag en klient i Maskinporten
 
 * Logg inn i test-miljøet
-  under [Integrasjoner i Samarbeidsportalen](https://selvbetjening-samarbeid-test.difi.no/integrations)
+  under [Integrasjoner i Samarbeidsportalen](https://sjolvbetjening.test.samarbeid.digdir.no/integrations)
 * Velg ny integrasjon, velg `Difi-tjeneste: Maskinporten`, velg relevante scopes og oppgi levetid.
 * Ta vare på `client_id` og `client_name` etter lagring
 
