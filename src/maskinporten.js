@@ -41,7 +41,7 @@ const fetch_access_token = async function (client) {
 
     console.log(jwt)
 
-    const response = await fetch(`${client.url ? client.url : url}/token`,
+    const response = await fetch(`${client.url ? client.url : url}token`,
         {
             method: 'post',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
