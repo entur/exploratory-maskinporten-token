@@ -7,16 +7,19 @@ const crypto = require('crypto');
 // https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
 
-const aud = "https://entur.org"
-
 const createJwtForClient = function (client, selectedIssuer, cert) {
 
     let certsPath = `../certs/${cert}`
     var privateKey = fs.readFileSync(certsPath);
+
+    let payload = {
+        "scope": client.scope
+    };
+    if(client.audience !== undefined){
+        payload['resource'] = client.audience;
+    }
     return jwt.sign(
-        {
-            "scope": client.scope, resource: [client.audience ? client.audience : aud]
-        },
+        payload,
         privateKey, {
             algorithm: 'RS256',
             audience: selectedIssuer.issuer,
