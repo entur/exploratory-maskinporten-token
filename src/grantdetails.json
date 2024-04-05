@@ -1,6 +1,8 @@
 {
-  "scope": "entur:skyss.1",
-  "client_id": "fcae871b-4597-492e-ab9f-762ff2443fb1",
-  "keyname": "tryggtunnel",
-  "url": "https://sky.maskinporten.dev/"
+  "scope": "prefix:name",
+  "client_id": "uuid",
+  "keyname": "my-key-id",
+  "url": "https://sky.maskinporten.dev/",
+  "audience": "https://entur.org",
+  "certname": "filename under /certs-folder"
 }
