@@ -3,16 +3,13 @@ var jwt = require('jsonwebtoken');
 var fs = require('fs');
 var issuer = require('./issuer');
 const crypto = require('crypto');
-const openidClient = require('openid-client');
 
 // https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
 
-
-const url = "https://test.maskinporten.no/";
 const aud = "https://entur.org"
 
-const generateToken = function (client, selectedIssuer, cert) {
+const createJwtForClient = function (client, selectedIssuer, cert) {
 
     let certsPath = `../certs/${cert}`
     var privateKey = fs.readFileSync(certsPath);
@@ -31,7 +28,7 @@ const generateToken = function (client, selectedIssuer, cert) {
 };
 
 
-const fetch_access_token = async function (client) {
+const createValidBearerToken = async function (client) {
 
     const {
         certname: cert = "maskinporten.pem",
@@ -40,7 +37,7 @@ const fetch_access_token = async function (client) {
 
     let selectedIssuer = await issuer.discover(url);
 
-    const jwt = generateToken(client, selectedIssuer, cert);
+    const jwt = createJwtForClient(client, selectedIssuer, cert);
 
     const grant = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 
@@ -66,6 +63,6 @@ const fetch_access_token = async function (client) {
 
 
 module.exports = {
-    createToken: fetch_access_token,
+    createToken: createValidBearerToken,
 
 }
