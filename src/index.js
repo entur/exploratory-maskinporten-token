@@ -1,5 +1,4 @@
 const maskinporten = require("./maskinporten");
-const grantDetails = require('./tenor.json');
 
 function logToken(promise) {
     promise.then((data) => {
@@ -7,4 +6,6 @@ function logToken(promise) {
     });
 }
 
-logToken(maskinporten.createToken(grantDetails));
+let clientConfig =  process.argv[2] ? require(`../configs/${process.argv[2]}.json`) : require('./grantdetails.json');
+
+logToken(maskinporten.createToken(clientConfig));

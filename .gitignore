@@ -65,5 +65,6 @@ token.json
 *.pem
 credentials.json
 
+configs
 .nvmrc
 .envrc
