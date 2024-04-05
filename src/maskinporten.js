@@ -1,7 +1,9 @@
 const fetch = require('node-fetch');
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
+var issuer = require('./issuer');
 const crypto = require('crypto');
+const openidClient = require('openid-client');
 
 // https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
@@ -11,16 +13,18 @@ const crypto = require('crypto');
 const url = "https://test.maskinporten.no/";
 const aud = "https://entur.org"
 
-const generateToken = function (client) {
+const generateToken = function (client, selectedIssuer) {
+
     let certsPath = client.certname? `../certs/${client.certname}`:  '../certs/maskinporten.pem';
     var privateKey = fs.readFileSync(certsPath);
+    console.log(selectedIssuer)
     return jwt.sign(
         {
             "scope": client.scope, resource: [client.audience ? client.audience : aud]
         },
         privateKey, {
             algorithm: 'RS256',
-            audience: client.url ? client.url : url,
+            audience: selectedIssuer.issuer,
             issuer: client.client_id,
             header: {"kid": client.keyname},
             expiresIn: 100,
@@ -29,9 +33,12 @@ const generateToken = function (client) {
 };
 
 
+
 const fetch_access_token = async function (client) {
 
-    const jwt = generateToken(client);
+    let selectedIssuer = await issuer.discover(client.url ? client.url : "https://test.maskinporten.no/");
+
+    const jwt = generateToken(client, selectedIssuer);
 
     const grant = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 
@@ -39,14 +46,15 @@ const fetch_access_token = async function (client) {
     params.append("grant_type", grant);
     params.append("assertion", jwt);
 
-    console.log(jwt)
+    console.log(`Token is signed from issuer: ${selectedIssuer.issuer}`)
 
-    const response = await fetch(`${client.url ? client.url : url}token`,
+    const response = await fetch(`${selectedIssuer.token_endpoint}`,
         {
             method: 'post',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: params
         });
+
 
     const data = await response.json();
 
