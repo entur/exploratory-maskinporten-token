@@ -30,6 +30,9 @@ Mulige utvidelser i objektet er `url`, `audience` og `certname`,  tilsvarende `f
 
  kjør `node index configname` fra `src` hvor `configname`er filnavnet (uten.json) på configen under mappen `/configs`. 
  Om du dropper dette parametret, vil den bruke innholdet i `grantdetails.json`
+
+Eksempel: 
+`node index minimal` vil kjøre scriptet med configen fra `configs/minimal.json`
  
 
 ## Videre bruk 

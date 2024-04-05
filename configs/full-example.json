@@ -1,8 +1,0 @@
-{
-  "scope": "prefix:name",
-  "client_id": "uuid",
-  "keyname": "my-key-id",
-  "url": "https://sky.maskinporten.dev/",
-  "audience": "https://entur.org",
-  "certname": "certname.pem"
-}
