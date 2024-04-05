@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
-var jwt = require('jsonwebtoken');
-var fs = require('fs');
-var issuer = require('./issuer');
-const crypto = require('crypto');
+import fetch from 'node-fetch';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import crypto from 'crypto';
+import discover from './issuer.js';
 
 // https://sky.maskinporten.dev/.well-known/openid-configuration
 // https://test.maskinporten.no/
@@ -25,7 +25,7 @@ const createJwtForClient = function (client, selectedIssuer, cert) {
             audience: selectedIssuer.issuer,
             issuer: client.client_id,
             header: {"kid": client.keyname},
-            expiresIn: 100,
+            expiresIn: 60,
             jwtid: crypto.randomUUID()
         });
 };
@@ -38,7 +38,7 @@ const createValidBearerToken = async function (client) {
         url = "https://test.maskinporten.no/"
     } = client;
 
-    let selectedIssuer = await issuer.discover(url);
+    let selectedIssuer = await discover(url);
 
     const jwt = createJwtForClient(client, selectedIssuer, cert);
 
@@ -48,7 +48,7 @@ const createValidBearerToken = async function (client) {
     params.append("grant_type", grant);
     params.append("assertion", jwt);
 
-    console.log(`Token is signed from issuer: ${selectedIssuer.issuer}`)
+   // console.log(`Token is signed from issuer: ${selectedIssuer.issuer}`)
 
     const response = await fetch(`${selectedIssuer.token_endpoint}`,
         {
@@ -64,8 +64,4 @@ const createValidBearerToken = async function (client) {
     return data;
 }
 
-
-module.exports = {
-    createToken: createValidBearerToken,
-
-}
+export { createValidBearerToken as createToken };

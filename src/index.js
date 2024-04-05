@@ -1,4 +1,5 @@
-const maskinporten = require("./maskinporten");
+import {createToken} from "./maskinporten.js"
+import { readFile } from 'fs/promises';
 
 function logToken(promise) {
     promise.then((data) => {
@@ -6,6 +7,6 @@ function logToken(promise) {
     });
 }
 
-let clientConfig =  process.argv[2] ? require(`../configs/${process.argv[2]}.json`) : require('./grantdetails.json');
-
-logToken(maskinporten.createToken(clientConfig));
+let filename =  process.argv[2] ? `../configs/${process.argv[2]}.json` : './grantdetails.json';
+let clientConfig = JSON.parse(await readFile(filename, "utf8"));
+logToken(createToken(clientConfig));

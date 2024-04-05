@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "author": "",
   "license": "EUPL",
   "dependencies": {
     "jsonwebtoken": "9.0.0",
     "jwks-rsa": "^2.1.4",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^3.3.2"
   }
 }

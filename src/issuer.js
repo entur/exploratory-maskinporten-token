@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 const discover = async function (url) {
 
     const response = await fetch(`${url}.well-known/oauth-authorization-server/`)
@@ -6,7 +6,4 @@ const discover = async function (url) {
 }
 
 
-module.exports = {
-    discover: discover,
-
-}
+export { discover as default };
