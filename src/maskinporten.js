@@ -9,15 +9,13 @@ const openidClient = require('openid-client');
 // https://test.maskinporten.no/
 
 
-
 const url = "https://test.maskinporten.no/";
 const aud = "https://entur.org"
 
-const generateToken = function (client, selectedIssuer) {
+const generateToken = function (client, selectedIssuer, cert) {
 
-    let certsPath = client.certname? `../certs/${client.certname}`:  '../certs/maskinporten.pem';
+    let certsPath = `../certs/${cert}`
     var privateKey = fs.readFileSync(certsPath);
-    console.log(selectedIssuer)
     return jwt.sign(
         {
             "scope": client.scope, resource: [client.audience ? client.audience : aud]
@@ -33,12 +31,16 @@ const generateToken = function (client, selectedIssuer) {
 };
 
 
-
 const fetch_access_token = async function (client) {
 
-    let selectedIssuer = await issuer.discover(client.url ? client.url : "https://test.maskinporten.no/");
+    const {
+        certname: cert = "maskinporten.pem",
+        url = "https://test.maskinporten.no/"
+    } = client;
 
-    const jwt = generateToken(client, selectedIssuer);
+    let selectedIssuer = await issuer.discover(url);
+
+    const jwt = generateToken(client, selectedIssuer, cert);
 
     const grant = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 
