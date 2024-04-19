@@ -50,11 +50,36 @@ node index.js | jq -r ".access_token"
 
 # Førstegangsoppsett i Maskinporten via forenklet onboarding
 
-Opprett nytt sertifikat `openssl genrsa -out maskinporten.pem 2048` og hent ut public key `openssl rsa -in maskinporten.pem -pubout -out maskinporten.pem.pub`
+| Link                                            | Miljøer                               | Påloggingskrav                               |
+|-------------------------------------------------|---------------------------------------|----------------------------------------------|
+| [TEST](http://onboarding.test.maskinporten.no/) | Testmiljø med syntetiske bedrifter    | Syntetisk personpålogging fra Tenor          |
+| [PROD](http://onboarding.maskinporten.no/)      | Prod- og testmiljø for ekte orgnummer | Personlig pålogging med rettigheter i Altinn |
 
-Følg guiden i forenklet onboarding for opprettelse av ny integrasjon med opplastet nøkkel. Ta vare på key id og klientId som må plugges inn  her 
-for å få generert token. 
 
+## Ved bruk av nøkler
+
+Følg guiden i forenklet onboarding for opprettelse av ny integrasjon med nøkkel. 
+Ta vare på key id og klientId som må plugges inn her for å få generert token.
+
+Dersom du i klientopprettelsen ønsker å opprette nytt sertifikat selv kan du bruke følgende kommando `openssl genrsa -out maskinporten.pem 2048` og hent ut public key `openssl rsa -in maskinporten.pem -pubout -out maskinporten.pem.pub`, 
+men forenklet onboarding kan også generere nytt nøkkelpar for deg som kan lastes ned og brukes videre her. 
+
+## Ved bruk av virksomhetssertifikat
+
+Virksomhetssertifikat for ekte virksomheter kan bestilles av bemyndidigede personer for test og prod, 
+mens syntetiske bedrifter kan bestille test-virksomhetssertifikater, feks som her fra [Buypass](https://www.buypass.no/produkter/virksomhetssertifikat-esegl/bestill-testsertifikat-vid-europa).
+
+Her mottar du en en .p12-bundle og for å kunne bruke disse inn i koden her, 
+må du hente ut sertifikat (til `x5c`) og privatekey (til `certname`) separat.
+
+Uthenting av cert-fil til `x5c`-feltet:
+```openssl pkcs12 -in INFILE.p12 -out OUTFILE.pem -nodes -nocerts```
+
+Uthenting av pem-fil for å signere (`certname`-feltet):
+```openssl pkcs12 -in INFILE.p12 -out OUTFILE.crt -nokeys```
+
+I denne crt-fila må du (dessverre) også gå inn og manuelt slette alt utenfor `-----BEGIN/END CERTIFICATE-----`
+(TODO: fjerne dette manuelle steget)
 
 # Innholdet i JWT-grant
 
