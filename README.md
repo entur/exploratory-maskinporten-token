@@ -1,6 +1,9 @@
 # exploratory-maskinporten-token
 
-Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres test-miljø. Digdir har sin egen klient: https://github.com/felleslosninger/jwt-grant-generator
+Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient. Repoet har er primært
+rettet for å lage one-off tokens for manuell testing av Maskinporten-apier og ikke for bruk i produksjon.
+
+Digdir har sin egen java-klient: https://github.com/felleslosninger/jwt-grant-generator
 
 ## Uthenting av access_token
 Etter førstegangsoppsett for integrasjon i Maskinporten er gjennomført, 
