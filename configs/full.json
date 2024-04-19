@@ -2,6 +2,7 @@
   "scope": "prefix:name",
   "client_id": "uuid",
   "keyname": "my-key-id",
+  "x5c": "certificate-chain.crt",
   "url": "https://sky.maskinporten.dev/",
   "audience": "https://entur.org",
   "certname": "certname.pem"

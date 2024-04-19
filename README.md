@@ -4,7 +4,7 @@ Dette repoet kan lage gyldige jwt-tokens gitt en maskinporten-klient i deres tes
 
 ## Uthenting av access_token
 Etter førstegangsoppsett for integrasjon i Maskinporten er gjennomført, 
-opprett en ny config under `/configs` til å inneholde minimum rett scope, klientid og referanse til nøkkel. Dette forventer også at
+opprett en ny config under `/configs` til å inneholde minimum rett scope, klientid og referanse til nøkkel. 
 
 ```
 {
@@ -15,13 +15,15 @@ opprett en ny config under `/configs` til å inneholde minimum rett scope, klien
 ```
 Defaults her er ingen audience satt i token, Maskinporten-issuer på `https://test.maskinporten.no/` og privatnøkkel i fila `certs/maskinporten.pem`.
 
-Mulige utvidelser i objektet er `url`, `audience` og `certname`,  tilsvarende `full-example.json` 
+Mulige utvidelser i objektet er `url`,`x5c`, `audience` og `certname`,  tilsvarende `full-example.json`. 
+Dersom virksomhetssertifikat legges i `x5c`, trenger man ikke en keyname.  
 
 ```
 {
   "scope": "prefix:name",
   "client_id": "fcae871b-4597-492e-ab9f-762ff2443fb1",
   "keyname": "my-key-id",
+  "x5c": "cert.crt"                        // legg sertifikatchain i header (brukes ved signering med virksomhetssertifikat)
   "url": "https://sky.maskinporten.dev",   // overrider miljø/issuer fra https://test.maskinporten.no/
   "certname": "mycert.pem",                // overrider filnavn fra maskinporten.pem 
   "audience": "<verdi-fra-tilbyder-dokumentasjon>"
