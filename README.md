@@ -13,7 +13,7 @@ opprett en ny config under `/configs` til å inneholde minimum rett scope, klien
 {
   "scope": "prefix:name",
   "client_id": "uuid",
-  "keyname": "my-key-id"
+  "kid": "my-key-id"
 }
 ```
 Defaults her er ingen audience satt i token, Maskinporten-issuer på `https://test.maskinporten.no/` og privatnøkkel i fila `certs/maskinporten.pem`.
