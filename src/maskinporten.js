@@ -30,8 +30,8 @@ const createJwtForClient = function (client, selectedIssuer, cert) {
     }
 
     if(client.kid !== undefined){
-        console.log(client.keyname)
-        header.kid = client.keyname;
+        // console.log(client.keyname)
+        header.kid = client.kid;
     }
 
     return jwt.sign(
